@@ -1,9 +1,10 @@
 import os
 from Google import Create_Service
+from datetime import datetime
 import requests
 
 poks = [
-    ['ID', 'Name', 'URL']
+    ['ID', 'Name', 'URL', 'TimeStamp']
 ]
 
 def pokedex(url='https://pokeapi.co/api/v2/pokemon/', offset=0):
@@ -21,8 +22,9 @@ def pokedex(url='https://pokeapi.co/api/v2/pokemon/', offset=0):
                 temp = url.split("/")
                 id= temp[6]
                 name = pokemon['name']
-                poks.append([id,name,url])
-                print(id, name, url )
+                timestamp = (datetime.now().strftime('%Y-%m-%d - %H:%M:%S'))
+                poks.append([id,name,url,timestamp])
+                print(id, name, url, timestamp )
 
         next = input("Next page? [Y/N]")
         if next == ('y'):
@@ -31,14 +33,14 @@ def pokedex(url='https://pokeapi.co/api/v2/pokemon/', offset=0):
 if __name__ == '__main__':
     url =  'https://pokeapi.co/api/v2/pokemon/'
     pokedex()
-    CLIENT_SECRET_FILE = 'test.json'
+    CLIENT_SECRET_FILE = 'client_secret.json'
     API_NAME = 'sheets'
     API_VERSION = 'v4'
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     
     service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-    spreadsheet_id = '1fGlYK--7-XzaJpgT9Bih6MVKo_f5PXv37chn_F4WQSs'
+    spreadsheet_id = '1jrdWy6kOHzz9gjEuqgJFUnpnYnDb19-zB77XWbMOpeg'
 
 
     cell_range_insert = 'A1'
@@ -53,5 +55,3 @@ if __name__ == '__main__':
         range=cell_range_insert,
         body=value_range_body
     ).execute()
-    
-
