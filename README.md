@@ -1,7 +1,10 @@
 # PokeTest
 A pokemon index
 
-Download both files in the same folder
+Install Google Client library
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+Download files in the same folder
 
 Run the gsheets.py 
 
